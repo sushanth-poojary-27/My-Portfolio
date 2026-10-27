@@ -86,18 +86,7 @@ export const educationList: EducationItem[] = [
     period: '2024-2027',
     score: 'CGPA 7.66',
   },
-  {
-    degree: 'Junior College (HSC)',
-    institution: 'S.V.K.M Acharya A.V. Patel Junior College, Mumbai',
-    period: '2022-2024',
-    score: '68.8%',
-  },
-  {
-    degree: 'SSC',
-    institution: "St. Joseph's High School, Juhu, Mumbai",
-    period: '2010-2022',
-    score: '81.6%',
-  },
+ 
 ]
 
 export const activitiesList: ActivityItem[] = [
