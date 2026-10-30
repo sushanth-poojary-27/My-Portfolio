@@ -63,15 +63,15 @@ export const projects: ProjectItem[] = [
 export const skillGroups: SkillGroup[] = [
   {
     label: 'Languages',
-    items: ['Python', 'SQL'],
+    items: ['Python', 'SQL', 'Linux'],
   },
   {
     label: 'Databases',
-    items: ['PostgreSQL', 'MySQL'],
+    items: ['PostgreSQL', 'MySQL', 'MongoDB'],
   },
   {
     label: 'Data libraries',
-    items: ['pandas', 'NumPy', 'Matplotlib', 'Seaborn'],
+    items: ['pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Scikit-learn'],
   },
   {
     label: 'Tools',
@@ -98,12 +98,12 @@ export const activitiesList: ActivityItem[] = [
   {
     role: 'Member, Green Club',
     details:
-      'took part in environmental initiatives, including city-wide beach clean-ups and seminars.',
+      'took part in environmental initiatives, including city-wide beach clean-ups and seminars, awareness drives.',
   },
   {
     role: 'Mithibai College Cricket Team',
     details:
-      'represented the college in inter-collegiate tournaments (Taarang); runner-up in the inter-department tournament (ATS).',
+      'represented the college twice in inter-collegiate tournaments (Taarang); runner-up in the inter-department tournament (ATS).',
   },
 ]
 
