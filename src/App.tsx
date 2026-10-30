@@ -6,14 +6,15 @@ import { Navbar } from './components/Navbar'
 import { Projects } from './components/Projects'
 import { Skills } from './components/Skills'
 
-// Root component: single-column layout (max-width 760px) with light theme by default
-// and an optional dark mode toggle.
+// Root component: Obsidian dark-first editorial layout (max-width 1140px)
+// with DARK as the default theme and choice persisted under localStorage key "theme".
 export function App() {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     try {
-      return window.localStorage.getItem('theme') === 'dark'
+      const saved = window.localStorage.getItem('theme')
+      return saved ? saved === 'dark' : true
     } catch {
-      return false
+      return true
     }
   })
 
@@ -34,14 +35,14 @@ export function App() {
   return (
     <div
       id="top"
-      className="min-h-screen bg-[#FAFAF9] text-[#1C1917] transition-colors duration-150 dark:bg-[#141413] dark:text-[#F5F5F4]"
+      className="min-h-screen bg-bg text-ink transition-colors duration-200"
     >
       <Navbar
         darkMode={darkMode}
         onToggleDarkMode={() => setDarkMode((prev) => !prev)}
       />
 
-      <main className="mx-auto max-w-[760px] px-5 sm:px-6">
+      <main>
         <Intro />
         <Projects />
         <Skills />
@@ -49,8 +50,8 @@ export function App() {
         <Contact />
       </main>
 
-      <footer className="border-t border-[#E7E5E4] py-8 dark:border-[#292524]">
-        <div className="mx-auto max-w-[760px] px-5 text-[15px] text-[#57534E] dark:text-[#A8A29E] sm:px-6">
+      <footer className="border-t border-line py-10">
+        <div className="mx-auto max-w-[1140px] px-5 text-sm text-muted sm:px-8">
           © 2026 Sushanth Poojary
         </div>
       </footer>
@@ -59,4 +60,3 @@ export function App() {
 }
 
 export default App
-

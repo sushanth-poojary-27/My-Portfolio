@@ -1,72 +1,97 @@
 import { projects } from '../data/portfolio'
+import { Reveal } from './Reveal'
 
-// Projects section: plain 1px border cards with 8px radius, no shadows or glows.
 export function Projects() {
   return (
     <section
       id="projects"
       aria-labelledby="projects-heading"
-      className="scroll-mt-8 border-t border-[#E7E5E4] py-12 dark:border-[#292524]"
+      className="scroll-mt-20 border-t border-line py-20 md:py-28"
     >
-      <h2
-        id="projects-heading"
-        className="text-2xl font-semibold text-[#1C1917] dark:text-[#F5F5F4]"
-      >
-        Projects
-      </h2>
-
-      <div className="mt-6 space-y-6">
-        {projects.map((project) => (
-          <article
-            key={project.title}
-            className="rounded-lg border border-[#E7E5E4] bg-white p-5 transition-colors hover:border-[#A8A29E] dark:border-[#292524] dark:bg-[#1C1917] dark:hover:border-[#57534E] sm:p-6"
+      <div className="mx-auto max-w-[1140px] px-5 sm:px-8">
+        <Reveal>
+          <div className="flex items-center gap-3">
+            <span aria-hidden="true" className="h-px w-8 bg-accent" />
+            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+              01
+            </span>
+          </div>
+          <h2
+            id="projects-heading"
+            className="mt-3 font-serif text-4xl font-normal text-ink sm:text-5xl"
           >
-            <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline">
-              <h3 className="text-[20px] font-semibold text-[#1C1917] dark:text-[#F5F5F4]">
-                {project.title}
-              </h3>
-              <span className="text-[15px] text-[#57534E] dark:text-[#A8A29E]">
-                {project.period}
-              </span>
-            </div>
+            Projects
+          </h2>
+        </Reveal>
 
-            <p className="mt-2 text-[17px] leading-[1.65] text-[#292524] dark:text-[#E7E5E4]">
-              {project.summary}
-            </p>
+        <div className="mt-12 space-y-8">
+          {projects.map((project, index) => {
+            const formattedNumber = String(index + 1).padStart(2, '0')
+            return (
+              <Reveal key={project.title} delay={index * 100}>
+                <article className="group rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent sm:p-9">
+                  <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:gap-5">
+                      <span
+                        aria-hidden="true"
+                        className="font-serif text-3xl italic text-accent/35 transition-colors duration-300 group-hover:text-accent sm:text-4xl"
+                      >
+                        {formattedNumber}
+                      </span>
+                      <div>
+                        <h3 className="font-serif text-2xl font-normal text-ink sm:text-3xl">
+                          {project.title}
+                        </h3>
+                        <p className="mt-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                          {project.period}
+                        </p>
+                      </div>
+                    </div>
 
-            <ul className="mt-4 list-disc space-y-2 pl-5 text-[16px] leading-[1.65] text-[#44403C] dark:text-[#D6D3D1]">
-              {project.bullets.map((bullet) => (
-                <li key={bullet}>{bullet}</li>
-              ))}
-            </ul>
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="shrink-0 text-xs font-semibold uppercase tracking-[0.18em] text-accent transition-opacity duration-200 hover:underline"
+                      >
+                        View on GitHub →
+                      </a>
+                    )}
+                  </div>
 
-            <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-[#F5F5F4] pt-4 dark:border-[#292524]">
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded border border-[#E7E5E4] bg-[#FAFAF9] px-2.5 py-0.5 text-[14px] text-[#44403C] dark:border-[#44403C] dark:bg-[#141413] dark:text-[#D6D3D1]"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+                  <p className="mt-5 text-base leading-[1.7] text-ink/90 sm:text-[17px]">
+                    {project.summary}
+                  </p>
 
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[15px] font-medium text-[#2F5DA8] underline-offset-4 hover:underline dark:text-[#7AA8E8]"
-                >
-                  View on GitHub
-                </a>
-              )}
-            </div>
-          </article>
-        ))}
+                  <ul className="mt-6 space-y-3 text-sm leading-[1.7] text-muted sm:text-base">
+                    {project.bullets.map((bullet) => (
+                      <li key={bullet} className="flex items-start gap-3.5">
+                        <span
+                          aria-hidden="true"
+                          className="mt-3 h-px w-3.5 shrink-0 bg-accent"
+                        />
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-8 flex flex-wrap items-center gap-2.5 border-t border-line pt-6">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-line bg-surface2 px-4 py-1.5 text-xs font-medium tracking-wide text-ink/90"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              </Reveal>
+            )
+          })}
+        </div>
       </div>
     </section>
   )
 }
-

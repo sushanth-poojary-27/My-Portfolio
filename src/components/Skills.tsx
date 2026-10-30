@@ -1,36 +1,51 @@
 import { skillGroups } from '../data/portfolio'
+import { Reveal } from './Reveal'
 
-// Skills section: simple labeled lists without progress bars or percentages.
 export function Skills() {
   return (
     <section
       id="skills"
       aria-labelledby="skills-heading"
-      className="scroll-mt-8 border-t border-[#E7E5E4] py-12 dark:border-[#292524]"
+      className="scroll-mt-20 border-t border-line bg-surface/50 py-20 md:py-28"
     >
-      <h2
-        id="skills-heading"
-        className="text-2xl font-semibold text-[#1C1917] dark:text-[#F5F5F4]"
-      >
-        Skills
-      </h2>
-
-      <dl className="mt-6 space-y-4">
-        {skillGroups.map((group) => (
-          <div
-            key={group.label}
-            className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4"
-          >
-            <dt className="w-40 shrink-0 text-[17px] font-semibold text-[#1C1917] dark:text-[#F5F5F4]">
-              {group.label}:
-            </dt>
-            <dd className="text-[17px] leading-[1.65] text-[#44403C] dark:text-[#D6D3D1]">
-              {group.items.join(', ')}
-            </dd>
+      <div className="mx-auto max-w-[1140px] px-5 sm:px-8">
+        <Reveal>
+          <div className="flex items-center gap-3">
+            <span aria-hidden="true" className="h-px w-8 bg-accent" />
+            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+              02
+            </span>
           </div>
-        ))}
-      </dl>
+          <h2
+            id="skills-heading"
+            className="mt-3 font-serif text-4xl font-normal text-ink sm:text-5xl"
+          >
+            Skills
+          </h2>
+        </Reveal>
+
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+          {skillGroups.map((group, index) => (
+            <Reveal key={group.label} delay={index * 80} className="h-full">
+              <div className="h-full rounded-2xl border border-line bg-surface p-6 transition-colors duration-300 hover:border-accent/60 sm:p-8">
+                <h3 className="font-serif text-2xl font-normal text-ink">
+                  {group.label}
+                </h3>
+                <div className="mt-5 flex flex-wrap gap-2.5">
+                  {group.items.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-line bg-surface2 px-4 py-1.5 text-sm font-medium text-ink/90 transition-colors duration-200 hover:border-accent"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
     </section>
   )
 }
-

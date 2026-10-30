@@ -3,35 +3,64 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --bg: 246 243 238;
+    --surface: 255 255 255;
+    --surface2: 238 234 227;
+    --line: 222 216 205;
+    --ink: 20 20 20;
+    --muted: 108 104 96;
+    --accent: 88 122 16;
+    --accent-ink: 255 255 255;
+  }
+
+  html.dark {
+    --bg: 11 11 12;
+    --surface: 20 20 22;
+    --surface2: 29 29 32;
+    --line: 44 44 49;
+    --ink: 240 237 230;
+    --muted: 150 147 140;
+    --accent: 198 241 53;
+    --accent-ink: 17 17 17;
+  }
+
   html {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 17px;
+    font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 16px;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     margin: 0;
-    background-color: #FAFAF9;
-    color: #1C1917;
+    background-color: rgb(var(--bg));
+    color: rgb(var(--ink));
     line-height: 1.65;
+    overflow-x: hidden;
   }
 
-  html.dark body {
-    background-color: #141413;
-    color: #F5F5F4;
+  ::selection {
+    background-color: rgb(var(--accent) / 0.3);
+    color: rgb(var(--ink));
   }
 
-  /* Clear, visible keyboard focus ring for accessibility */
   a:focus-visible,
   button:focus-visible {
-    outline: 2px solid #2F5DA8;
+    outline: 2px solid rgb(var(--accent));
     outline-offset: 3px;
     border-radius: 4px;
   }
+}
 
-  html.dark a:focus-visible,
-  html.dark button:focus-visible {
-    outline-color: #7AA8E8;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

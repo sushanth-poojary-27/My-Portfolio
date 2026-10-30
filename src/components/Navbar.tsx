@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { profile } from '../data/portfolio'
 
 interface NavbarProps {
@@ -7,59 +7,118 @@ interface NavbarProps {
 }
 
 const navLinks = [
-  { label: 'Projects', href: '#projects' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Education', href: '#education' },
-  { label: 'Contact', href: '#contact' },
+  { id: 'projects', label: 'Projects', href: '#projects' },
+  { id: 'skills', label: 'Skills', href: '#skills' },
+  { id: 'education', label: 'Education', href: '#education' },
+  { id: 'contact', label: 'Contact', href: '#contact' },
 ]
 
-// Simple top navigation bar with name on the left and 4 plain text links on the right.
-// Collapses to a basic "Menu" text button on small screens.
 export function Navbar({ darkMode, onToggleDarkMode }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState<string>('')
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 24)
+    }
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    if (typeof window.IntersectionObserver === 'undefined') return
+
+    const elements = navLinks
+      .map((item) => document.getElementById(item.id))
+      .filter((el): el is HTMLElement => el !== null)
+
+    if (elements.length === 0) return
+
+    const observer = new window.IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+          }
+        }
+      },
+      {
+        rootMargin: '-30% 0px -55% 0px',
+        threshold: 0,
+      },
+    )
+
+    for (const el of elements) {
+      observer.observe(el)
+    }
+
+    return () => observer.disconnect()
+  }, [])
 
   return (
-    <header className="border-b border-[#E7E5E4] bg-[#FAFAF9] dark:border-[#292524] dark:bg-[#141413]">
+    <header
+      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
+        scrolled || menuOpen
+          ? 'border-b border-line bg-bg/85 backdrop-blur-md'
+          : 'border-b border-transparent bg-transparent'
+      }`}
+    >
       <nav
         aria-label="Main navigation"
-        className="mx-auto flex max-w-[760px] items-center justify-between px-5 py-5 sm:px-6"
+        className="mx-auto flex max-w-[1140px] items-center justify-between px-5 py-5 sm:px-8"
       >
         <a
           href="#top"
-          className="text-[18px] font-semibold text-[#1C1917] hover:underline dark:text-[#F5F5F4]"
+          onClick={() => setActiveSection('')}
+          className="font-serif text-xl tracking-tight text-ink transition-colors duration-200 hover:text-accent sm:text-2xl"
         >
           {profile.name}
         </a>
 
-        {/* Desktop links */}
-        <div className="hidden items-center gap-6 sm:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-[16px] text-[#44403C] hover:text-[#2F5DA8] hover:underline dark:text-[#D6D3D1] dark:hover:text-[#7AA8E8]"
-            >
-              {link.label}
-            </a>
-          ))}
+        {/* Desktop navigation */}
+        <div className="hidden items-center gap-8 md:flex">
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.id
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                aria-current={isActive ? 'location' : undefined}
+                className={`relative py-1 text-xs font-medium uppercase tracking-[0.22em] transition-colors duration-200 ${
+                  isActive ? 'text-accent' : 'text-muted hover:text-ink'
+                }`}
+              >
+                {link.label}
+                <span
+                  aria-hidden="true"
+                  className={`absolute right-0 -bottom-1 left-0 h-px bg-accent transition-transform duration-300 ${
+                    isActive ? 'scale-x-100' : 'scale-x-0'
+                  }`}
+                />
+              </a>
+            )
+          })}
 
           <button
             type="button"
             onClick={onToggleDarkMode}
             aria-label={darkMode ? 'Switch to light theme' : 'Switch to dark theme'}
-            className="text-[15px] text-[#57534E] underline-offset-4 hover:text-[#2F5DA8] hover:underline dark:text-[#A8A29E] dark:hover:text-[#7AA8E8]"
+            className="rounded-full border border-line bg-surface/80 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-ink transition-all duration-200 hover:border-accent hover:text-accent"
           >
             {darkMode ? 'Light' : 'Dark'}
           </button>
         </div>
 
-        {/* Mobile menu controls */}
-        <div className="flex items-center gap-4 sm:hidden">
+        {/* Mobile controls */}
+        <div className="flex items-center gap-2.5 md:hidden">
           <button
             type="button"
             onClick={onToggleDarkMode}
             aria-label={darkMode ? 'Switch to light theme' : 'Switch to dark theme'}
-            className="text-[15px] text-[#57534E] hover:text-[#2F5DA8] hover:underline dark:text-[#A8A29E] dark:hover:text-[#7AA8E8]"
+            className="rounded-full border border-line bg-surface/80 px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-ink transition-all duration-200 hover:border-accent hover:text-accent"
           >
             {darkMode ? 'Light' : 'Dark'}
           </button>
@@ -69,35 +128,39 @@ export function Navbar({ darkMode, onToggleDarkMode }: NavbarProps) {
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-controls="mobile-nav-links"
-            className="text-[16px] font-medium text-[#1C1917] hover:text-[#2F5DA8] hover:underline dark:text-[#F5F5F4] dark:hover:text-[#7AA8E8]"
+            className="rounded-full border border-line bg-surface px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-ink transition-all duration-200 hover:border-accent hover:text-accent"
           >
             {menuOpen ? 'Close' : 'Menu'}
           </button>
         </div>
       </nav>
 
-      {/* Mobile links list */}
+      {/* Mobile menu drawer */}
       {menuOpen && (
         <div
           id="mobile-nav-links"
-          className="border-t border-[#E7E5E4] bg-[#FAFAF9] px-5 py-4 dark:border-[#292524] dark:bg-[#141413] sm:hidden"
+          className="border-t border-line bg-bg/95 px-5 py-8 backdrop-blur-xl sm:px-8 md:hidden"
         >
-          <ul className="mx-auto flex max-w-[760px] flex-col gap-3">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="block py-1 text-[17px] text-[#1C1917] hover:text-[#2F5DA8] hover:underline dark:text-[#F5F5F4] dark:hover:text-[#7AA8E8]"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+          <ul className="mx-auto flex max-w-[1140px] flex-col gap-5">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.id
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={`block font-serif text-3xl transition-colors duration-200 ${
+                      isActive ? 'italic text-accent' : 'text-ink hover:text-accent'
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              )
+            })}
           </ul>
         </div>
       )}
     </header>
   )
 }
-

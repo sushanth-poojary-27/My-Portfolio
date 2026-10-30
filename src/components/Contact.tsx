@@ -1,55 +1,60 @@
 import { profile } from '../data/portfolio'
+import { Reveal } from './Reveal'
 
-// Contact section: short availability sentence and plain text links for email, LinkedIn, and GitHub.
 export function Contact() {
   return (
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="scroll-mt-8 border-t border-[#E7E5E4] py-12 dark:border-[#292524]"
+      className="scroll-mt-20 border-t border-line py-20 md:py-28"
     >
-      <h2
-        id="contact-heading"
-        className="text-2xl font-semibold text-[#1C1917] dark:text-[#F5F5F4]"
-      >
-        Contact
-      </h2>
+      <div className="mx-auto max-w-[1140px] px-5 sm:px-8">
+        <Reveal>
+          <div className="flex items-center gap-3">
+            <span aria-hidden="true" className="h-px w-8 bg-accent" />
+            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+              04
+            </span>
+          </div>
+          <h2
+            id="contact-heading"
+            className="mt-3 font-serif text-4xl font-normal text-ink sm:text-5xl"
+          >
+            Contact
+          </h2>
 
-      <p className="mt-4 text-[17px] leading-[1.65] text-[#44403C] dark:text-[#D6D3D1] sm:text-[18px]">
-        {profile.contactNote}
-      </p>
+          <p className="mt-6 max-w-3xl font-serif text-2xl leading-[1.4] text-ink sm:text-3xl lg:text-4xl">
+            {profile.contactNote}
+          </p>
 
-      <ul className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[17px]">
-        <li>
-          <a
-            href={`mailto:${profile.email}`}
-            className="font-medium text-[#2F5DA8] underline-offset-4 hover:underline dark:text-[#7AA8E8]"
-          >
-            {profile.email}
-          </a>
-        </li>
-        <li>
-          <a
-            href={profile.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-[#2F5DA8] underline-offset-4 hover:underline dark:text-[#7AA8E8]"
-          >
-            LinkedIn
-          </a>
-        </li>
-        <li>
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-[#2F5DA8] underline-offset-4 hover:underline dark:text-[#7AA8E8]"
-          >
-            GitHub
-          </a>
-        </li>
-      </ul>
+          <div className="mt-9 flex flex-wrap items-center gap-4">
+            <a
+              href={`mailto:${profile.email}`}
+              className="rounded-full bg-accent px-7 py-3.5 text-xs font-semibold tracking-wider text-accent-ink transition-all duration-300 hover:-translate-y-0.5 hover:opacity-95 sm:text-sm"
+            >
+              {profile.email}
+            </a>
+
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-line bg-surface px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent"
+            >
+              LinkedIn
+            </a>
+
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-line bg-surface px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent"
+            >
+              GitHub
+            </a>
+          </div>
+        </Reveal>
+      </div>
     </section>
   )
 }
-
