@@ -35,7 +35,7 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/sushanth-poojary-603303341',
   github: 'https://github.com/sushanth-poojary-27',
   resumeUrl: '/resume.pdf',
-  photoUrl: '/profile.jpg',
+  photoUrl: '/profile.png',
   intro:
     "I'm a final-year B.Sc. Computer Science student at Mithibai College, Mumbai. I'm building a foundation in data engineering and backend development with Python, SQL and PostgreSQL, and I learn best by building projects. I'm looking for a data engineering or backend internship.",
   contactNote:
