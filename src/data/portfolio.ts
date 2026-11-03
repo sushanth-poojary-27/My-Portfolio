@@ -78,20 +78,20 @@ export const projects: ProjectItem[] = [
 
 export const skillGroups: SkillGroup[] = [
   {
-    label: 'Languages',
-    items: ['Python', 'SQL', 'Linux'],
+    label: 'Languages & Querying',
+    items: ['Python', 'SQL', 'Bash'],
   },
   {
-    label: 'Databases',
-    items: ['PostgreSQL', 'MySQL', 'MongoDB'],
+    label: 'Databases & Storage',
+    items: ['PostgreSQL', 'MySQL', 'MongoDB', 'DuckDB', 'Parquet'],
   },
   {
-    label: 'Data libraries',
-    items: ['pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Scikit-learn'],
+    label: 'Data Engineering & Modeling',
+    items: ['pandas', 'dbt-core', 'Apache Airflow', 'Star Schema', 'Data Pipelines'],
   },
   {
-    label: 'Tools',
-    items: ['Git and GitHub', 'DBeaver', 'Jupyter Notebook', 'VS Code'],
+    label: 'Infrastructure & Developer Tools',
+    items: ['Git and GitHub', 'DBeaver', 'Docker', 'VS Code'],
   },
 ]
 
