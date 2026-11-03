@@ -57,6 +57,22 @@ export const projects: ProjectItem[] = [
     githubUrl:
       'https://github.com/sushanth-poojary-27/google-playstore-data-pipeline',
   },
+
+  {
+    title: 'Quick-Commerce Data Platform',
+    period: 'November 2026, in progress',
+    summary:
+      'An end-to-end data platform for a Blinkit/Zepto-style quick-commerce business, built to answer delivery, revenue and retention questions.',
+    bullets: [
+      'Generates realistic orders, customers, stores and delivery timestamps with Faker into a normalised PostgreSQL schema, including deliberate duplicates, nulls and late events.',
+      'Runs an incremental, watermark-based extract to Parquet with pandas, designed to be safe to re-run without creating duplicates.',
+      'Models a star schema (order and delivery facts plus dimensions) in dbt on DuckDB, with tests for uniqueness, nulls and relationships.',
+      'Next steps: Airflow DAG in Docker, Open-Meteo weather data for rain-vs-delay analysis, and a dashboard covering revenue, P90 delivery time and SLA breaches.',
+    ],
+    tags: ['Python', 'PostgreSQL', 'pandas', 'dbt', 'DuckDB', 'Airflow', 'Docker'],
+    githubUrl:
+      'https://github.com/sushanth-poojary-27/quick-commerce-data-platform',
+  },
  
 ]
 
